@@ -36,6 +36,10 @@ resource "scaleway_vpc_public_gateway" "nat" {
     "role=control-plane"
   ]))
 
+  # Allow to use nat as a bastion
+  bastion_enabled = true
+  bastion_port    = 61000
+
   # By default, the SMTP ports (25, 465, 587, 2525) are blocked to avoid spam.
   # If you wish to send emails from resources located behind your Public Gateway, open these ports by enabling SMTP.
   enable_smtp = true
