@@ -299,9 +299,9 @@ use_cases:
               - name: "Scaleway organization ID"
                 description: "Scaleway organization ID for Terraform."
                 key: scw_organization_id
-                widget: cy_cred
+                widget: simple_text
                 type: string
-                default: "((scaleway.organization_id))"
+                default: ""
               - name: "Scaleway region"
                 description: Scaleway region to use for Terraform."
                 key: scw_default_region
@@ -472,9 +472,9 @@ use_cases:
               - name: "Scaleway organization ID"
                 description: "Scaleway organization ID for Terraform."
                 key: scw_organization_id
-                widget: cy_cred
+                widget: simple_text
                 type: string
-                default: "((scaleway.organization_id))"
+                default: ""
               - name: "Scaleway region"
                 description: Scaleway region to use for Terraform."
                 key: scw_default_region

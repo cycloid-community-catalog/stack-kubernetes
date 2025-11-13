@@ -88,7 +88,7 @@ module "node_pool" {
   #+ Whether to wait for the pool to be ready.
 
   ###
-  # Required 
+  # Required
   ###
 
   cluster_id   = data.terraform_remote_state.kubernetes-infra.outputs.cluster_id
@@ -110,3 +110,9 @@ module "node_pool" {
 #    skip_region_validation      = true
 #  }
 #}
+
+# fake module to not have warning
+module "kapsule" {
+  count  = 0
+  source = "./module-null"
+}
