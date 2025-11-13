@@ -46,8 +46,8 @@ There are 4 versions of the pipeline supported in this stack, one per supported 
 
 |Name|Description|Type|Default|Required|
 |---|---|:---:|:---:|:---:|
-|`aks_service_principal_client_id`|The Client ID for the Service Principal used by the AKS cluster.|`-`|`((custom_($ project $)-($ environment $)-sp.client_id))`|`True`|
-|`aks_service_principal_client_secret`|The Client Secret for the Service Principal used by the AKS cluster.|`-`|`((custom_($ project $)-($ environment $)-sp.client_secret))`|`True`|
+|`aks_service_principal_client_id`|The Client ID for the Service Principal used by the AKS cluster.|`-`|`((custom_($ .project $)-($ .environment $)-sp.client_id))`|`True`|
+|`aks_service_principal_client_secret`|The Client Secret for the Service Principal used by the AKS cluster.|`-`|`((custom_($ .project $)-($ .environment $)-sp.client_secret))`|`True`|
 |`azure_client_id`|Azure client ID to use for Terraform.|`-`|`((azure_admin.client_id))`|`True`|
 |`azure_client_secret`|Azure client secret to use for Terraform.|`-`|`((azure_admin.client_secret))`|`True`|
 |`azure_env`|Azure environment to use for Terraform. Can be either `public`, `usgovernment`, `german` or `china`.|`-`|`public`|`True`|
@@ -57,16 +57,16 @@ There are 4 versions of the pipeline supported in this stack, one per supported 
 |`config_git_branch`|Branch of the config Git repository.|`-`|`master`|`True`|
 |`config_git_private_key`|SSH key pair to fetch the config Git repository.|`-`|`((ssh_config.ssh_key))`|`True`|
 |`config_git_repository`|Git repository URL containing the config of the stack.|`-`|`git@github.com:MyUser/config-aks.git`|`True`|
-|`config_terraform_path`|Path of Terraform files in the config git repository|`-`|`($ project $)/terraform/($ environment $)`|`True`|
-|`customer`|Name of the Cycloid Organization, used as customer variable name.|`-`|`($ organization_canonical $)`|`True`|
-|`env`|Name of the project's environment.|`-`|`($ environment $)`|`True`|
-|`project`|Name of the project.|`-`|`($ project $)`|`True`|
+|`config_terraform_path`|Path of Terraform files in the config git repository|`-`|`($ .project $)/terraform/($ .environment $)`|`True`|
+|`customer`|Name of the Cycloid Organization, used as customer variable name.|`-`|`($ .organization_canonical $)`|`True`|
+|`env`|Name of the project's environment.|`-`|`($ .environment $)`|`True`|
+|`project`|Name of the project.|`-`|`($ .project $)`|`True`|
 |`stack_git_branch`|Branch to use on the public stack Git repository|`-`|`master`|`True`|
-|`terraform_resource_group_name`|Azure Resource Group of the Storage Account to use to store terraform remote state file.|`-`|`($ organization_canonical $)-terraform`|`True`|
+|`terraform_resource_group_name`|Azure Resource Group of the Storage Account to use to store terraform remote state file.|`-`|`($ .organization_canonical $)-terraform`|`True`|
 |`terraform_storage_account_key`|Azure Storage Account key to use to store terraform remote state file.|`-`|`((azure_storage_aks.account_key))`|`True`|
 |`terraform_storage_account_name`|Azure Storage Account name to use to store terraform remote state file.|`-`|`((azure_storage_aks.account_name))`|`True`|
-|`terraform_storage_container_name`|Azure Storage container name to store terraform remote state file.|`-`|`($ organization_canonical $)`|`True`|
-|`terraform_storage_container_path`|Azure Storage container path to store terraform remote state file.|`-`|`($ project $)/($ environment $)`|`True`|
+|`terraform_storage_container_name`|Azure Storage container name to store terraform remote state file.|`-`|`($ .organization_canonical $)`|`True`|
+|`terraform_storage_container_path`|Azure Storage container path to store terraform remote state file.|`-`|`($ .project $)/($ .environment $)`|`True`|
 |`terraform_version`|terraform version used to execute your code.|`-`|`'1.0.4'`|`True`|
 
 
@@ -77,15 +77,15 @@ Name|Description|Type|Default|Required|
 |`config_git_branch`|Branch of the config Git repository.|`-`|`master`|`True`|
 |`config_git_private_key`|SSH key pair to fetch the config Git repository.|`-`|`((ssh_config.ssh_key))`|`True`|
 |`config_git_repository`|Git repository URL containing the config of the stack.|`-`|`git@github.com:MyUser/config-eks.git`|`True`|
-|`config_terraform_path`|Path of Terraform files in the config git repository|`-`|`($ project $)/terraform/($ environment $)`|`True`|
-|`customer`|Name of the Cycloid Organization, used as customer variable name.|`-`|`($ organization_canonical $)`|`True`|
-|`env`|Name of the project's environment.|`-`|`($ environment $)`|`True`|
+|`config_terraform_path`|Path of Terraform files in the config git repository|`-`|`($ .project $)/terraform/($ .environment $)`|`True`|
+|`customer`|Name of the Cycloid Organization, used as customer variable name.|`-`|`($ .organization_canonical $)`|`True`|
+|`env`|Name of the project's environment.|`-`|`($ .environment $)`|`True`|
 |`gcp_credentials_json`|Google Cloud Platform credentials JSON for Terraform. See value format [here](https://docs.cycloid.io/advanced-guide/integrate-and-use-cycloid-credentials-manager.html#vault-in-the-pipeline)|`-`|`((gcp_credentials.json))`|`True`|
 |`gcp_project`|Google Cloud Platform project to use for Terraform.|`-`|`kubernetes-gke`|`True`|
 |`gcp_region`|Google Cloud Platform region to use for Terraform.|`-`|`europe-west1`|`True`|
-|`project`|Name of the project.|`-`|`($ project $)`|`True`|
+|`project`|Name of the project.|`-`|`($ .project $)`|`True`|
 |`stack_git_branch`|Branch to use on the public stack Git repository|`-`|`master`|`True`|
-|`terraform_storage_bucket_name`|Google Cloud Storage bucket name to store terraform remote state file.|`-`|`($ organization_canonical $)-terraform-remote-state`|`True`|
+|`terraform_storage_bucket_name`|Google Cloud Storage bucket name to store terraform remote state file.|`-`|`($ .organization_canonical $)-terraform-remote-state`|`True`|
 |`terraform_version`|terraform version used to execute your code.|`-`|`'1.0.4'`|`True`|
 
 ***scaleway-kapsule***
@@ -95,16 +95,16 @@ Name|Description|Type|Default|Required|
 |`config_git_branch`|Branch of the config Git repository.|`-`|`master`|`True`|
 |`config_git_private_key`|SSH key pair to fetch the config Git repository.|`-`|`((ssh_config.ssh_key))`|`True`|
 |`config_git_repository`|Git repository URL containing the config of the stack.|`-`|`git@github.com:MyUser/config-kapsule.git`|`True`|
-|`config_terraform_path`|Path of Terraform files in the config git repository|`-`|`($ project $)/terraform/($ environment $)`|`True`|
-|`customer`|Name of the Cycloid Organization, used as customer variable name.|`-`|`($ organization_canonical $)`|`True`|
-|`env`|Name of the project's environment.|`-`|`($ environment $)`|`True`|
-|`project`|Name of the project.|`-`|`($ project $)`|`True`|
+|`config_terraform_path`|Path of Terraform files in the config git repository|`-`|`($ .project $)/terraform/($ .environment $)`|`True`|
+|`customer`|Name of the Cycloid Organization, used as customer variable name.|`-`|`($ .organization_canonical $)`|`True`|
+|`env`|Name of the project's environment.|`-`|`($ .environment $)`|`True`|
+|`project`|Name of the project.|`-`|`($ .project $)`|`True`|
 |`scw_access_key`|Scaleway access key for Terraform. See [here](https://console.scaleway.com/account/organization/credentials).|`-`|`((scaleway.access_key))`|`True`|
 |`scw_default_region`|Scaleway region to use for Terraform.|`-`|`fr-par`|`True`|
 |`scw_organization_id`|Scaleway secret key for Terraform. See [here](https://console.scaleway.com/account/organization/credentials).|`-`|`((scaleway.organization_id))`|`True`|
 |`scw_secret_key`|Scaleway organization ID for Terraform. See [here](https://console.scaleway.com/account/organization/credentials).|`-`|`((scaleway.secret_key))`|`True`|
 |`stack_git_branch`|Branch to use on the public stack Git repository|`-`|`master`|`True`|
-|`terraform_storage_bucket_name`|AWS S3 bucket name to store terraform remote state file.|`-`|`($ organization_canonical $)-terraform-remote-state`|`True`|
+|`terraform_storage_bucket_name`|AWS S3 bucket name to store terraform remote state file.|`-`|`($ .organization_canonical $)-terraform-remote-state`|`True`|
 |`terraform_version`|terraform version used to execute your code.|`-`|`'0.13.3'`|`True`|
 
 

@@ -1,98 +1,101 @@
 # Configuration of Cycloid stack
 ---
-version: '2'
-name: 'kubernetes'
-canonical: 'stack-kubernetes'
-status: 'private'
+version: "4"
+name: "kubernetes"
+canonical: "stack-kubernetes"
+status: "private"
 description: |
   This stack allows to deploy a chosen kubernetes managed service in one of the available providers.
 keywords:
-  - 'kubernetes'
-  - 'k8s'
-  - 'aks'
-  - 'provider:azure'
-  - 'gke'
-  - 'provider:gcp'
-  - 'kapsule'
-  - 'provider:scw'
-author: 'Cycloid'
-image: 'https://raw.githubusercontent.com/cycloid-community-catalog/stack-kubernetes/master/docs/k8s-logo.png'
+  - "kubernetes"
+  - "k8s"
+  - "aks"
+  - "provider:azure"
+  - "gke"
+  - "provider:gcp"
+  - "kapsule"
+  - "provider:scw"
+author: "Cycloid"
+image: "https://raw.githubusercontent.com/cycloid-community-catalog/stack-kubernetes/master/docs/k8s-logo.png"
 technologies:
-   - technology: GCP
-     version: n/a
-   - technology: Azure
-     version: n/a
-   - technology: Scaleway
-     version: n/a
+  - technology: GCP
+    version: n/a
+  - technology: Azure
+    version: n/a
+  - technology: Scaleway
+    version: n/a
 
 config:
   # define the default environment for azure
   azure-aks:
-    name: 'azure-aks'
+    name: "azure-aks"
     cloud_provider: azurerm
-    description: 'Creates Azure K8s Service (AKS) in dedicated VPC with 1+ node pools'
+    description: "Creates Azure K8s Service (AKS) in dedicated VPC with 1+ node pools"
     # Configuration of the CI pipeline
     pipeline:
       pipeline:
-        path: 'pipeline/azure-aks.yml'
+        path: "pipeline/azure-aks.yml"
       variables:
-        path: 'pipeline/variables.azure-aks.sample.yml'
-        destination: '($ project $)/pipeline/variables-($ environment $).yml'
+        path: "pipeline/variables.azure-aks.sample.yml"
+        destination: "($ .config_root $)/pipeline/variables.yml"
+
     # Configuration of terraform to setup the infrastructure
     terraform:
       aks:
-        path: 'terraform/azure-aks/aks.tf.sample'
-        destination: '($ project $)/terraform/($ environment $)/aks.tf'
+        path: "terraform/azure-aks/aks.tf.sample"
+        destination: "($ .config_root $)/terraform/aks.tf"
 
   # define the default environment for google
   gcp-gke:
-    name: 'gcp-gke'
+    name: "gcp-gke"
     cloud_provider: google
-    description: 'Creates Google Kubernetes Engine (GKE) in dedicated newtork cluster with 1+ node pools'
+    description: "Creates Google Kubernetes Engine (GKE) in dedicated newtork cluster with 1+ node pools"
     # Configuration of the CI pipeline
     pipeline:
       pipeline:
-        path: 'pipeline/gcp-gke.yml'
+        path: "pipeline/gcp-gke.yml"
       variables:
-        path: 'pipeline/variables.gcp-gke.sample.yml'
-        destination: '($ project $)/pipeline/variables-($ environment $).yml'
+        path: "pipeline/variables.gcp-gke.sample.yml"
+        destination: "($ .config_root $)/pipeline/variables.yml"
+
     # Configuration of terraform to setup the infrastructure
     terraform:
       gke:
-        path: 'terraform/gcp-gke/gke.tf.sample'
-        destination: '($ project $)/terraform/($ environment $)/gke.tf'
+        path: "terraform/gcp-gke/gke.tf.sample"
+        destination: "($ .config_root $)/terraform/gke.tf"
 
   # define the default environment for kapsule
   scaleway-kapsule:
-    name: 'scaleway-kapsule'
+    name: "scaleway-kapsule"
     cloud_provider: scaleway
-    description: 'Creates Scaleway Kubernetes Kapsule cluster with 1+ node pools'
+    description: "Creates Scaleway Kubernetes Kapsule cluster with 1+ node pools"
     # Configuration of the CI pipeline
     pipeline:
       pipeline:
-        path: 'pipeline/scaleway-kapsule.yml'
+        path: "pipeline/scaleway-kapsule.yml"
       variables:
-        path: 'pipeline/variables.scaleway-kapsule.sample.yml'
-        destination: '($ project $)/pipeline/($ environment $)/variables.yml'
+        path: "pipeline/variables.scaleway-kapsule.sample.yml"
+        destination: "($ .config_root $)/pipeline/variables.yml"
+
     # Configuration of terraform to setup the infrastructure
     terraform:
       kapsule:
-        path: 'terraform/scaleway-kapsule/kapsule.tf.sample'
-        destination: '($ project $)/terraform/($ environment $)/kapsule.tf'
+        path: "terraform/scaleway-kapsule/kapsule.tf.sample"
+        destination: "($ .config_root $)/terraform/kapsule.tf"
 
   scaleway-nodes:
-    name: 'Node pool'
+    name: "Node pool"
     cloud_provider: scaleway
-    description: 'Adds Kapsule node pools deployment to an existing cluster.'
+    description: "Adds Kapsule node pools deployment to an existing cluster."
     # Configuration of the CI pipeline
     pipeline:
       pipeline:
-        path: 'pipeline/scaleway-kapsule.yml'
+        path: "pipeline/scaleway-kapsule.yml"
       variables:
-        path: 'pipeline/variables.scaleway-kapsule.sample.yml'
-        destination: '($ project $)/pipeline/($ environment $)/variables.yml'
+        path: "pipeline/variables.scaleway-kapsule.sample.yml"
+        destination: "($ .config_root $)/pipeline/variables.yml"
     # Configuration of terraform to setup the infrastructure
     terraform:
       kapsule:
-        path: 'terraform/scaleway-kapsule/node_pool.tf.sample'
-        destination: '($ project $)/terraform/($ environment $)/node_pool.tf'
+        path: "terraform/scaleway-kapsule/node_pool.tf.sample"
+        destination: "($ .config_root $)/terraform/node_pool.tf"

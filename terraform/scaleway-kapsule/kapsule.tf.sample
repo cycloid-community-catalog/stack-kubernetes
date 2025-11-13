@@ -138,7 +138,7 @@ module "node_pool" {
 
   ## To add placement group, create a separate file in the /config branch for the stack
   ## Containing the following resource
-  # resource "scaleway_instance_placement_group" "($ environment $)" {
+  # resource "scaleway_instance_placement_group" "($ .environment $)" {
   #  name        = var.placement_group_name
   #  policy_type = "max_availability"
   #  policy_mode = "optional"
